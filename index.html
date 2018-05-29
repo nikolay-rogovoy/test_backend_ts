@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<table id="my_table" border="1px;">
+
+</table>
+<br>
+<div>
+    <form id="form" name="form" method="post">
+        <div>
+            <label>name</label>
+            <input type="text" name="name" id="name">
+        </div>
+        <div>
+            <label>comment</label>
+            <input type="text" name="comment" id="comment">
+        </div>
+        <div>
+            <label>birthday</label>
+            <input type="date" name="birthday" id="birthday">
+        </div>
+        <div>
+            <label>birthday</label>
+            <input type="datetime-local" name="dtcre" id="dtcre">
+        </div>
+        <div>
+            <input type="button" name="submit" value="submit" onclick="subminMyForm()">
+        </div>
+    </form>
+</div>
+
+<script>
+
+    function subminMyForm() {
+        let data = {
+            name: $('#name')[0].value,
+            comment: $('#comment')[0].value,
+            birthday: new Date($('#birthday')[0].value),
+            dtcre: new Date($('#dtcre')[0].value)
+        };
+        $.post(`http://localhost:3005/api/customer`, data, function(response){
+            loadTable();
+        },'json');
+    }
+
+    // $('#form').live('submit', function(){
+    //     $.post($(this).attr('action'), $(this).serialize(), function(response){
+    //         // do something here on success
+    //     },'json');
+    //     return false;
+    // });
+
+    document.addEventListener("DOMContentLoaded", loadTable);
+
+    function loadTable() {
+        let myTable = document.getElementById('my_table');
+        while (myTable.firstChild) {
+            myTable.removeChild(myTable.firstChild);
+        }
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://localhost:3005/api/customer', false);
+        xhr.send();
+        if (xhr.status != 200) {
+            alert(xhr.status + ': ' + xhr.statusText);
+        } else {
+            let customers = JSON.parse(xhr.responseText).result;
+            console.log(xhr.responseText);
+            for (let customer of customers) {
+                let tr = document.createElement('TR');
+                myTable.appendChild(tr);
+                let td = document.createElement('TD');
+                td.appendChild(document.createTextNode(customer.id));
+                tr.appendChild(td);
+                td = document.createElement('TD');
+                td.appendChild(document.createTextNode(customer.name));
+                tr.appendChild(td);
+                td = document.createElement('TD');
+                td.appendChild(document.createTextNode(customer.comment));
+                tr.appendChild(td);
+                td = document.createElement('TD');
+                td.appendChild(document.createTextNode(customer.birthday));
+                tr.appendChild(td);
+                td = document.createElement('TD');
+                td.onclick = () => {
+                    xhr = new XMLHttpRequest();
+                    xhr.open('DELETE', `http://localhost:3005/api/customer/${customer.id}`, false);
+                    xhr.send();
+                    loadTable();
+                }
+                td.appendChild(document.createTextNode('X'));
+                tr.appendChild(td);
+            }
+            alert(xhr.responseText); // responseText -- текст ответа.
+        }
+    }
+</script>
+
+</body>
+</html>
