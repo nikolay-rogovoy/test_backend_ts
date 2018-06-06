@@ -67,8 +67,9 @@ export class Server {
                 port: 5432,
                 username: "postgres",
                 password: "rjk,fcf123",
-                database: "test",
+                database: "test_ts",
                 synchronize: true,
+                logging: ['query', 'error', 'schema', 'warn', 'info', 'log'],
                 entities: [
                     "entity/**/*.js"
                 ]
