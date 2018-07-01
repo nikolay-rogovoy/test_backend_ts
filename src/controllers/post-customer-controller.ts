@@ -1,6 +1,6 @@
 import {IController} from './i-controller';
 import {Request, Response} from 'express-serve-static-core';
-import {Customer} from "../entity/Customer";
+import {Position} from "../entity/position";
 import {getRepository} from "typeorm";
 import {getLogger} from "../src/logger";
 
@@ -17,8 +17,8 @@ export class PostCustomerController implements IController {
     /***/
     async handler(req: Request, res: Response) {
         this.logger.debug('handleRoutes /customer post');
-        const customerRepository = getRepository(Customer);
-        let data = new Array<Customer>();
+        const customerRepository = getRepository(Position);
+        let data = new Array<Position>();
         if (req.body instanceof Array) {
             data.push(...req.body);
         } else {

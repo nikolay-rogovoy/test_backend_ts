@@ -59,7 +59,6 @@ export class Server {
 
     /**Получить соединение с постгрес*/
     initTypeOrm() {
-
         createConnection(
             {
                 type: "postgres",
@@ -78,6 +77,8 @@ export class Server {
             this.logger.debug('TypeOrm - OK');
             this.configureExpress();
         }).catch(error => this.logger.error(error));
+
+        this.configureExpress();
     }
 
     /**Конфигурация HTTP сервера*/

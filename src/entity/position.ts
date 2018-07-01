@@ -1,8 +1,9 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {DateTransformer} from "../date-transformer";
+import {PositionItem} from "./position-item";
 
 @Entity()
-export class Customer {
+export class Position {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -28,4 +29,9 @@ export class Customer {
 
     @Column({nullable: true})
     dtcre: Date;
+
+    /***/
+    @OneToMany(type => PositionItem, positionItem => positionItem.position)
+    positionitems: PositionItem[];
+
 }

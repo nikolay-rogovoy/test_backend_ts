@@ -4,6 +4,7 @@ import {GetCustomerController} from "./controllers/get-customer-controller";
 import {GetCustomersController} from "./controllers/get-customers-controller";
 import {PostCustomerController} from "./controllers/post-customer-controller";
 import {DeleteCustomerController} from "./controllers/delete-customer-controller";
+import {Test2Controller} from "./controllers/test2-controller";
 
 /**Класс обработки маршрутов*/
 export class RestRouter {
@@ -38,6 +39,8 @@ export class RestRouter {
         // test
         cnt = new TestController();
         router.get('/test', cnt.handler.bind(cnt));
+        cnt = new Test2Controller();
+        router.get('/test2', cnt.handler.bind(cnt));
 
         // customers
         cnt = new GetCustomersController();

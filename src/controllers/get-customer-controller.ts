@@ -1,6 +1,6 @@
 import {IController} from './i-controller';
 import {Request, Response} from 'express-serve-static-core';
-import {Customer} from "../entity/Customer";
+import {Position} from "../entity/position";
 import {getRepository} from "typeorm";
 import {getLogger} from "../src/logger";
 
@@ -18,7 +18,7 @@ export class GetCustomerController implements IController {
     async handler(req: Request, res: Response) {
         this.logger.debug('handleRoutes /customer/:idcustomer get');
         const idcustomer = req.params['idcustomer'];
-        const customerRepository = getRepository(Customer);
+        const customerRepository = getRepository(Position);
         let customers = await customerRepository.find({
             where: {
                 id: idcustomer

@@ -3,9 +3,11 @@ import {Request, Response} from 'express-serve-static-core';
 import {Position} from "../entity/position";
 import {createConnection, getConnection, getManager, getRepository} from "typeorm";
 import {getLogger} from "../src/logger";
+import {fromPromise} from "rxjs/observable/fromPromise";
+import {map} from "rxjs/operators";
 
 /***/
-export class TestController implements IController {
+export class Test2Controller implements IController {
 
     /***/
     logger = getLogger(module);
@@ -17,15 +19,10 @@ export class TestController implements IController {
     /***/
     async handler(req: Request, res: Response) {
         this.logger.debug('handleRoutes /test get');
-
         debugger;
-        const manager = getManager();
-        let customer = manager.create(Position);
-        let metadata = manager.connection.entityMetadatas;
         res.json({
             res: 'ok'
         });
-        this.logger.debug('TypeOrm - OK');
     }
 }
 

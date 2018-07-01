@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "npm run build && cd dist && node app.js",
+        "start-debug": "npm run build && cd dist && node --inspect app.js",
         "tsc": "tsc",
         "tsc-w": "tsc -w",
         "build": "node tools/pre-build.js && npm run tsc && node tools/copy.js"

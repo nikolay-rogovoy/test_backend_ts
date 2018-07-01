@@ -1,6 +1,6 @@
 import {IController} from './i-controller';
 import {Request, Response} from 'express-serve-static-core';
-import {Customer} from "../entity/Customer";
+import {Position} from "../entity/position";
 import {getRepository} from "typeorm";
 import {getLogger} from "../src/logger";
 
@@ -17,7 +17,7 @@ export class DeleteCustomerController implements IController {
     /***/
     async handler(req: Request, res: Response) {
         this.logger.debug('handleRoutes /customer/:idcustomer delete');
-        const customerRepository = getRepository(Customer);
+        const customerRepository = getRepository(Position);
         const idcustomer = req.params['idcustomer'];
         let resultDelete = await customerRepository.delete(idcustomer);
         // let resultSave = data;
